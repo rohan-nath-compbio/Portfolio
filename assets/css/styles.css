@@ -595,6 +595,36 @@ footer {
     font-weight: 700;
   }
 
+  .publication-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: calc(-1 * var(--space-sm)) 0 var(--space-lg);
+  }
+
+  .publication-filter {
+    min-height: 36px;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease, color var(--dur-fast) ease;
+  }
+
+  .publication-filter:hover,
+  .publication-filter[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    color: var(--text);
+  }
+
+  .year-heading[hidden],
+  .pub-list[hidden] {
+    display: none;
+  }
+
   .pub-item {
     position: relative;
     display: flex;

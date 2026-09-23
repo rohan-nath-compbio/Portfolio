@@ -222,6 +222,41 @@
     });
   }
 
+  function initPublicationFilters() {
+    const filters = $("#publicationFilters");
+    if (!filters) return;
+
+    const groups = $$(".year-heading").map((heading) => ({
+      year: heading.textContent.trim(),
+      heading,
+      list: heading.nextElementSibling,
+    })).filter(({ list }) => list?.classList.contains("pub-list"));
+
+    if (groups.length < 2) return;
+
+    const options = ["All", ...groups.map(({ year }) => year)];
+    const buttons = options.map((option, index) => {
+      const button = document.createElement("button");
+      button.className = "publication-filter";
+      button.type = "button";
+      button.textContent = option;
+      button.setAttribute("aria-pressed", String(index === 0));
+      button.addEventListener("click", () => {
+        const showAll = option === "All";
+        groups.forEach(({ year, heading, list }) => {
+          const visible = showAll || year === option;
+          heading.hidden = !visible;
+          list.hidden = !visible;
+        });
+        buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      });
+      return button;
+    });
+
+    filters.setAttribute("role", "group");
+    filters.append(...buttons);
+  }
+
   function initBackToTop() {
     const backTop = $("#backTop");
     if (!backTop) return;
@@ -236,5 +271,6 @@
   initReveal();
   initProgress();
   initGallery();
+  initPublicationFilters();
   initBackToTop();
 })();
