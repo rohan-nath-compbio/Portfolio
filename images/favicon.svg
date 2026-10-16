@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #111111; }
+      .helix { stroke: #7dd3c7; }
+      .cross { stroke: #d6a05f; }
+      .node-pri { fill: #7dd3c7; }
+      .node-sec { fill: #d6a05f; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="14" fill="#fbfbfa"/>
+  <path class="helix" d="M16 16 C 24 24, 24 40, 16 48" stroke="#0f766e" stroke-width="4.5" stroke-linecap="round"/>
+  <path class="helix" d="M48 16 C 40 24, 40 40, 48 48" stroke="#0f766e" stroke-width="4.5" stroke-linecap="round"/>
+  <line class="cross" x1="20" y1="22" x2="44" y2="22" stroke="#9a5b13" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+  <line class="helix" x1="23" y1="32" x2="41" y2="32" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round"/>
+  <line class="cross" x1="20" y1="42" x2="44" y2="42" stroke="#9a5b13" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+  <circle class="node-sec" cx="32" cy="32" r="4.5" fill="#9a5b13"/>
+  <circle class="node-pri" cx="20" cy="22" r="2.5" fill="#0f766e"/>
+  <circle class="node-pri" cx="44" cy="22" r="2.5" fill="#0f766e"/>
+  <circle class="node-pri" cx="20" cy="42" r="2.5" fill="#0f766e"/>
+  <circle class="node-pri" cx="44" cy="42" r="2.5" fill="#0f766e"/>
+</svg>

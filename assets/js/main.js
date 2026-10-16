@@ -29,6 +29,10 @@
     const apply = () => {
       html.dataset.theme = theme;
       storage.set(theme);
+      const isDark = theme === "dark";
+      const color = isDark ? "#111111" : "#fbfbfa";
+      $$('meta[name="theme-color"]').forEach((meta) => meta.setAttribute("content", color));
+      $("#themeBtn")?.setAttribute("aria-checked", String(isDark));
     };
 
     if (animate && document.startViewTransition) {
@@ -114,15 +118,29 @@
     );
 
     sections.forEach((section) => observer.observe(section));
+
+    const updateBottomNav = () => {
+      const scrollPos = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (docHeight - scrollPos < 60) {
+        const lastSection = sections[sections.length - 1];
+        if (lastSection) {
+          navLinks.forEach((link) => {
+            const isCurrent = link.getAttribute("href") === `#${lastSection.id}`;
+            if (isCurrent) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        }
+      }
+    };
+    addEventListener("scroll", updateBottomNav, { passive: true });
   }
 
   function initReveal() {
     const revealItems = $$(".reveal");
-
-    if (supports("animation-timeline", "view()")) {
-      revealItems.forEach((item) => item.classList.add("visible"));
-      return;
-    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -132,7 +150,7 @@
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.1 },
     );
 
     revealItems.forEach((item) => observer.observe(item));
@@ -178,7 +196,10 @@
 
     const goTo = (index) => {
       current = (index + slides.length) % slides.length;
-      slides[current].scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      track.scrollTo({
+        left: slides[current].offsetLeft - track.offsetLeft,
+        behavior: "smooth",
+      });
       syncDots();
     };
 

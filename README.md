@@ -23,5 +23,5 @@ Open `index.html` in a browser. No build step is required.
 
 ## Author
 
-Rohan Nath  
+Rohan Nath - [GitHub](https://github.com/rohan-nath-compbio/)  
 For inquiries, visit the contact section.
