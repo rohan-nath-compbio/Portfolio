@@ -4,6 +4,7 @@
   const canvas = document.getElementById("bio-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
+  if (!ctx) return;
 
   // Subtle, non-distracting biological color system for dark and light modes
   function getColors() {
@@ -256,24 +257,23 @@
   }
 
   // Master Draw — subtle, elegant, distributed across the entire document
-  function draw() {
-    const W = canvas.width;
-    const H = canvas.height;
+  function draw(W, H) {
     ctx.clearRect(0, 0, W, H);
 
     const C = getColors();
     const isMobile = W < 768;
     const s = isMobile ? Math.max(0.65, W / 850) : Math.min(1.0, W / 1300);
 
-    // ── Continuous DNA Helices framing margins ──
+    // ── Continuous DNA Helices framing outer margins ──
     const leftMargin = W * 0.035;
     const rightMargin = W * 0.965;
     drawDNAHelix(leftMargin, 20 * s, 0.016, 0, H, C);
     drawDNAHelix(rightMargin, 18 * s, 0.018, Math.PI * 0.5, H, C);
 
-    if (!isMobile) {
-      drawDNAHelix(W * 0.12, 14 * s, 0.019, Math.PI * 0.8, H, C);
-      drawDNAHelix(W * 0.88, 15 * s, 0.017, Math.PI * 0.3, H, C);
+    const gutter = (W - 1180) / 2;
+    if (!isMobile && gutter > 110) {
+      drawDNAHelix(gutter * 0.62, 13 * s, 0.019, Math.PI * 0.8, H, C);
+      drawDNAHelix(W - gutter * 0.62, 14 * s, 0.017, Math.PI * 0.3, H, C);
     }
 
     // ── Subtle, non-intrusive shapes distributed down the full page ──
@@ -296,7 +296,7 @@
     drawPhyloBranches(isMobile ? W * 0.2 : W * 0.78, H * 0.62, 0, -Math.PI / 2, 36, s * 0.85, C);
     drawBenzene(isMobile ? W * 0.5 : W * 0.22, H * 0.65, 28 * s, 0, C);
 
-    // SECTION 4 (Gallery & Contact area: 68% - 100% of H)
+    // SECTION 4 (Beyond the Lab & Contact area: 68% - 100% of H)
     drawAminoAcid(isMobile ? W * 0.2 : W * 0.25, H * 0.74, s * 0.85, 0.2, C);
     drawCellOutline(isMobile ? W * 0.8 : W * 0.78, H * 0.77, 44 * s, C);
     drawGPCRCore(isMobile ? W * 0.5 : W * 0.76, H * 0.86, s * 0.80, C);
@@ -308,14 +308,19 @@
 
   function resize() {
     resizeFrame = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const w = document.documentElement.clientWidth;
-    const h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    const h = Math.max(document.body.offsetHeight, document.documentElement.clientHeight);
+    const targetW = Math.round(w * dpr);
+    const targetH = Math.round(h * dpr);
 
-    if (canvas.width !== w || canvas.height !== h) {
-      canvas.width = w;
-      canvas.height = h;
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
     }
-    draw();
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw(w, h);
   }
 
   function scheduleResize() {
@@ -330,6 +335,10 @@
     document.addEventListener("DOMContentLoaded", scheduleResize);
   } else {
     scheduleResize();
+  }
+
+  if ("ResizeObserver" in window && document.body) {
+    new ResizeObserver(scheduleResize).observe(document.body);
   }
 
   // Instantly re-render with new colors when light/dark theme toggles
