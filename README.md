@@ -8,7 +8,7 @@ A personal portfolio website showcasing my research, publications, gallery, and 
 - `assets/css/styles.css` - visual system, layout, and responsive styling
 - `assets/js/main.js` - navigation, theme, scroll, gallery lightbox, and contact interactions
 - `assets/js/bio-canvas.js` - theme-aware scientific background canvas
-- `images/` - portrait and favicon assets
+- `images/` - portrait, publication thumbnails, and favicon assets
 - `images/gallery/` - gallery JPEG/WebP image pairs
 
 ## Image Updates

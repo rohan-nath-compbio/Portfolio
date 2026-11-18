@@ -805,131 +805,25 @@
     transform: translateX(4px);
   }
 
-  .pub-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.65rem;
-  }
-
-  .pub-journal-pill {
-    display: none;
-    padding: 0.15rem 0.5rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--surface-2);
-    color: var(--text);
-    font-size: var(--text-xs);
-    font-weight: 600;
-  }
-
-  .pub-role-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.15rem 0.55rem;
-    border: 1px solid color-mix(in srgb, var(--accent-2) 38%, var(--border));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent-2) 11%, transparent);
-    color: var(--accent-2);
-    font-size: var(--text-xs);
-    font-weight: 600;
-  }
-
-  .pub-doi {
-    color: var(--text-muted);
-    font-size: var(--text-xs);
-    word-break: break-word;
-  }
-
-  .pub-citation {
-    color: var(--text);
-    line-height: 1.75;
-    opacity: 0.94;
-  }
-
-  .pub-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    align-self: flex-start;
-    color: var(--accent-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color var(--dur-fast) ease, gap var(--dur-mid) var(--ease-out);
-  }
-
-  .pub-link::after {
-    content: "\2192";
-    display: inline-block;
-    transition: transform var(--dur-mid) var(--ease-out);
-  }
-
-  .pub-link:hover {
-    gap: 0.6rem;
-    color: var(--accent);
-  }
-
-  .pub-link:hover::after {
-    transform: translateX(3px);
-  }
-
-  .pub-journal-badge {
-    width: 102px;
+  .pub-thumb-wrap {
+    max-width: 86px;
     flex-shrink: 0;
     align-self: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.2rem;
-    padding: 0.65rem 0.5rem;
+  }
+
+  .pub-thumb {
+    width: 100%;
+    height: auto;
     border: 1px solid var(--border);
-    border-radius: var(--r-md);
-    background: var(--surface);
-    text-align: center;
-    transition: border-color var(--dur-fast) ease, transform var(--dur-mid) var(--ease-out);
+    border-radius: var(--r-sm);
+    opacity: 0.88;
+    background: #ffffff;
+    transition: opacity var(--dur-fast) ease, transform var(--dur-mid) var(--ease-out);
   }
 
-  .pub-item:hover .pub-journal-badge {
-    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  .pub-item:hover .pub-thumb {
+    opacity: 1;
     transform: translateY(-1px);
-  }
-
-  .pub-journal-pnas .journal-mark {
-    font-family: "DM Sans", sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1.1;
-    color: var(--text);
-  }
-
-  .pub-journal-pnas .journal-rule {
-    width: 68%;
-    height: 3px;
-    border-radius: 999px;
-    background: #0072bc;
-  }
-
-  [data-theme="dark"] .pub-journal-pnas .journal-rule {
-    background: #60a5fa;
-  }
-
-  .pub-journal-mbe .journal-mark {
-    font-family: "Lora", Georgia, serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 1.1;
-    color: var(--text);
-  }
-
-  .journal-sub,
-  .journal-vol {
-    color: var(--text-muted);
-    font-size: 0.7rem;
-    line-height: 1.2;
   }
 
   /* Beyond the Lab: 3-col portrait grid on desktop, snap carousel on mobile */
@@ -1481,12 +1375,8 @@
     padding-left: 0.75rem;
   }
 
-  .pub-journal-badge {
+  .pub-thumb-wrap {
     display: none;
-  }
-
-  .pub-journal-pill {
-    display: inline-flex;
   }
 
   .gallery-track {
@@ -1587,7 +1477,7 @@
   .r-card,
   .contact-card,
   .gallery-card,
-  .pub-journal-badge {
+  .pub-thumb-wrap {
     box-shadow: none !important;
     border: 1px solid #ddd !important;
   }
